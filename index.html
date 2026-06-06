@@ -1,29 +1,4 @@
-<?php
-require __DIR__ . '/db.php';
-session_start();
-
-// Изход
-if (isset($_GET['logout'])) {
-    $_SESSION = [];
-    session_destroy();
-    header('Location: index.php');
-    exit;
-}
-
-// Вход с ПИН
-$error = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pin'])) {
-    if (hash_equals(PIN_CODE, (string)$_POST['pin'])) {
-        $_SESSION['niauth'] = true;
-        header('Location: index.php'); // PRG срещу повторно изпращане
-        exit;
-    }
-    $error = 'Грешен ПИН код. Опитай пак.';
-}
-
-$authed = !empty($_SESSION['niauth']);
-?>
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="bg">
 <head>
 <meta charset="utf-8">
